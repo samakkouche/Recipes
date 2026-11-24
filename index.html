@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Recipes">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" type="image/png" href="icon-192.png">
-<meta name="theme-color" content="#fbf6ee">
 <title>Recipes</title>
 <style>
 :root{--bg:#fbf6ee;--fg:#2b2118;--mut:#7a6a5b;--card:#fff;--ln:#eadfd0;--ac:#d9672b;--ok:#3f8f5a;
@@ -43,8 +39,46 @@ button.p{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:600}
 </head>
 <body>
 <div id="app"></div>
-<script src="recipes.js"></script>
 <script>
+var R=[
+{id:"curry",n:"Wagamama Chicken Coconut Curry",e:"🍛",total:50,
+ note:"Timings are my estimates; your saved recipe didn’t include any.",
+ ing:["Chicken","Ghee","Turmeric","Curry powder","Salt","Pepper","Rice","Onion","Garlic cloves (a couple)","Peppers","Coconut milk","Chicken stock","Stringless or runner beans (optional)"],
+ st:[
+ {a:0,d:5,t:"Wash and season the chicken",x:"Wash the chicken, then season lightly with turmeric, salt, pepper and curry powder."},
+ {a:5,d:25,t:"Chicken into the pan",x:"Melt ghee in a pan and cook the chicken slowly, turning now and then until cooked through.",g:"Medium-low heat"},
+ {a:10,d:15,t:"Wash the rice and put it on",x:"While the chicken cooks: wash the rice until the water runs clear, then put it on to cook.",g:"Rice about 12–15 min"},
+ {a:15,d:10,t:"Chop everything",x:"While chicken and rice cook: chop the onion and garlic, and slice the peppers (and beans if using)."},
+ {a:30,d:2,t:"Chicken out",x:"Set the chicken aside and leave the juices in the pan. Turn the rice off and keep it covered."},
+ {a:32,d:5,t:"Sauté onion and garlic",x:"Cook in the chicken juices, stirring in curry powder and turmeric as they cook.",g:"Medium heat"},
+ {a:37,d:3,t:"Add coconut milk and stock",x:"Pour in both and bring to a gentle simmer."},
+ {a:40,d:8,t:"Chicken and peppers back in",x:"Return the chicken, add the peppers (and beans) and simmer a little. Taste and adjust the seasoning.",g:"Gentle simmer"},
+ {a:48,d:2,t:"Serve over rice",x:"Fluff the rice and serve."}]},
+{id:"lamb",n:"Greek-Style Roast Leg of Lamb",e:"🍋",total:360,
+ note:"Night before: thaw in a sealed leak-proof bag fully submerged in cold water, changing the water every 30 min (about 4–5 h for a 2.2 kg leg), then straight into the fridge overnight. Times below fit a 2.2 kg leg.",
+ ing:["Bone-in leg of lamb","Garlic (a few cloves to sliver, 2–3 to crush)","Lemons (juice, plus zest of one)","Smooth Dijon mustard (a couple of tsp)","Extra virgin olive oil","Dried oregano (plenty)","Chicken or lamb stock","White wine (optional)","Honey (optional)","Potatoes (for wedges)","Salt","Pepper"],
+ st:[
+ {a:0,d:60,t:"Lamb out of the fridge, sauce, stud and rub",x:"Whisk lemon juice, zest, Dijon, olive oil, crushed garlic and oregano into a sauce. Pierce the lamb all over, push garlic slivers into the slits, then rub the sauce all over."},
+ {a:45,d:15,t:"Preheat the oven",x:"Get it up to temperature before the lamb goes in.",g:"160–170°C"},
+ {a:60,d:150,t:"Lamb into the oven, covered",x:"Lamb in a roasting tray, stock (and wine) poured around it, covered tightly with foil or wet parchment.",g:"160–170°C"},
+ {a:210,d:20,t:"Steam the potato wedges",x:"Cut into wedges and steam briefly so they stay firm. Toss in olive oil, oregano, salt, pepper and drippings from the lamb tray."},
+ {a:300,d:10,t:"Check the lamb",x:"It should be very tender and shred with a fork. Use a meat thermometer rather than time alone."},
+ {a:315,d:45,t:"Uncover, honey, potatoes in",x:"Take the foil off, brush a little honey on top, turn the oven up and put the potatoes in alongside for 30–40 min.",g:"200°C"},
+ {a:360,d:10,t:"Everything out and serve",x:"Rest about 10 min under foil if you can (optional). Spoon the lemony mustard pan juices over to serve."}]},
+{id:"pie",n:"Chicken Pot Pie",e:"🥧",total:60,
+ note:"Thaw the puff pastry beforehand. Timings are my estimates; the original says 45 min total, but the bake alone is 20–25.",
+ ing:["Unsalted butter (2 tbsp)","Carrots (1 large or 2 small)","Yellow onion (a quarter)","Celery (1–2 ribs)","Garlic (2 tsp minced)","Fresh sage (3 leaves)","Fresh thyme (2 sprigs)","Fresh rosemary (a pinch)","Plain flour (2 tbsp)","Chicken stock (about 1½ cups)","Half and half (⅓ cup, or milk/cream)","Salt","Black pepper","Smoked paprika","Red pepper flakes","Yellow mustard","Turmeric","Nutmeg","Rotisserie chicken (8 oz)","Frozen baby peas (⅓ cup)","Puff pastry sheet (8 oz, thawed)","Egg","Heavy cream (1 tbsp)"],
+ st:[
+ {a:0,d:10,t:"Preheat and prep",x:"Dice the carrots, onion and celery small. Chop the garlic, sage and rosemary. Shred the chicken.",g:"200°C (400°F)"},
+ {a:10,d:8,t:"Cook the veg",x:"Melt the butter and cook carrots, onion and celery for 7–8 min until softened with some browning. Stir in garlic, sage, thyme and rosemary.",g:"Medium heat"},
+ {a:18,d:1,t:"Add the flour",x:"Sprinkle over the veg, stir to coat and cook for 1 min."},
+ {a:19,d:3,t:"Stock and half and half",x:"Pour in the stock slowly while stirring to avoid lumps, then add the half and half. Let it thicken slightly."},
+ {a:22,d:2,t:"Season",x:"Salt, pepper, smoked paprika, red pepper flakes, mustard, turmeric and nutmeg. Taste and adjust."},
+ {a:24,d:4,t:"Chicken and peas",x:"Stir in the chicken and peas and simmer a few minutes until heated through. Take off the heat."},
+ {a:28,d:5,t:"Fill and top",x:"Divide the filling between two 5.5-inch skillets or small oven-safe dishes. Cut the pastry into 1/2–1 inch pieces and scatter over. Beat the egg with the cream and brush over the pastry."},
+ {a:33,d:22,t:"Bake",x:"Bake until the pastry is golden and crisp.",g:"200°C (400°F)"},
+ {a:55,d:5,t:"Cool and serve",x:"Let it cool for 5 min before serving."}]}
+];
 var K="recipes-v1",P={done:{},t:{}};
 try{var s=localStorage.getItem(K);if(s)P=JSON.parse(s);}catch(e){}
 function save(){try{localStorage.setItem(K,JSON.stringify(P));}catch(e){}}
@@ -97,7 +131,6 @@ function send(){
  if(navigator.share){navigator.share({title:"Shopping",text:txt}).catch(function(e){if(!e||e.name!=="AbortError")copy()})}else copy();
 }
 render();
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
 </script>
 </body>
 </html>
